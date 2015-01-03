@@ -1,0 +1,11 @@
+{
+  "name": "etsy-offline-wishlist",
+  "version": "0.1.0",
+  "description": "A demo app using the Etsy API to search for items and add them to an offline-capable wishlist.",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HipsterBrown",
+  "license": "MIT"
+}
