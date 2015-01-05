@@ -1,0 +1,41 @@
+.items {
+  @extend %clear;
+  display: inline-block;
+  list-style: none;
+  width: 100%;
+}
+
+.item {
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 2em;
+  margin-right: 2%;
+  overflow: hidden;
+  width: 31.5%;
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+.item-img {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.item-info {
+  padding: 0.5em;
+}
+
+.item-title {
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.item-price {
+  color: $green-lime;
+}

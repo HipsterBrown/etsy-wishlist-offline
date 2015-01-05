@@ -2,8 +2,9 @@ $('document').ready(function(){
   console.log('Ready for Etsy action!');
 
   var apiKey = "xx09emkh4xk0j6co24m7q436";
-  var trendingUrl = "https://openapi.etsy.com/v2/listings/trending.js?limit=12&includes=Images:1&api_key="+apiKey;
-  var interestingUrl = "https://openapi.etsy.com/v2/listings/interesting.js?limit=12&includes=Images:1&api_key="+apiKey;
+  var limit = 24;
+  var trendingUrl = "https://openapi.etsy.com/v2/listings/trending.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
+  var interestingUrl = "https://openapi.etsy.com/v2/listings/interesting.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
   var resultsBox =  $('#results');
 
   var searchForm = $('#search-form');
@@ -45,7 +46,7 @@ $('document').ready(function(){
       return false;
     }
 
-    var searchUrl = "https://openapi.etsy.com/v2/listings/active.js?keywords="+terms+"&limit=12&includes=Images:1&api_key="+apiKey;
+    var searchUrl = "https://openapi.etsy.com/v2/listings/active.js?keywords="+terms+"&limit="+limit+"&includes=Images:1&api_key="+apiKey;
 
     loadItems(searchUrl, terms);
   }
