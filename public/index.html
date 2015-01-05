@@ -7,19 +7,24 @@
 </head>
 <body>
   <div class="top-nav">
-    <h1 class="logo"><a href="/">Etsy Wishlist</a></h1>
-    <h3 class="tagline">Offline Capable for Your Convenience</h3>
+    <div class="container">
+      <h1 class="logo"><a href="/">Etsy Wishlist</a></h1>
+      <h3 class="tagline">Offline Capable for Your Convenience</h3>
+    </div>
   </div>
   <main>
-    <form id="search-form" action="https://etsy.com/search.php" method="GET">
-      <input id="terms" type="text" name="search" placeholder="Search for items">
-      <input id="search" type="submit" name="search-submit" value="Search">
-    </form>
-    <div class="button-bar">
-      <button class="item-button" data-action="trending">Trending</button>
-      <button class="item-button" data-action="interesting">Interesting</button>
+    <div class="container">
+      <div class="button-bar">
+        <button class="item-button" data-action="trending">Trending</button>
+        <button class="item-button" data-action="interesting">Interesting</button>
+
+        <form id="search-form" action="https://etsy.com/search.php" method="GET">
+          <input id="terms" type="text" name="search" placeholder="Search for items">
+          <input id="search" type="submit" name="search-submit" value="Search">
+        </form>
+      </div>
+      <div id="results"></div>
     </div>
-    <div id="results"></div>
   </main>
 
   <script id="template-result" type="x-tmpl-mustache">
