@@ -6,7 +6,26 @@
   <link rel="stylesheet" href="/css/style.css" charset="utf-8">
 </head>
 <body>
-  <h1>Hello Etsy Users!</h1>
+  <div class="top-nav">
+    <h1 class="logo"><a href="/">Etsy Wishlist</a></h1>
+    <h3 class="tagline">Offline Capable for Your Convenience</h3>
+  </div>
+  <main>
+    <form id="search-form" action="https://etsy.com/search.php" method="GET">
+      <input id="terms" type="text" name="search" placeholder="Search for items">
+      <input id="search" type="submit" name="search-submit" value="Search">
+    </form>
+    <div id="results"></div>
+  </main>
+
+  <script id="template-result" type="x-tmpl-mustache">
+    <li class="item">
+      <a href="{{ url }}">
+        <img src="{{#Images}}{{ url_75x75 }}{{/Images}}" alt="{{ description }}" />
+      </a>
+    </li>
+  </script>
+  <script charset="utf-8" src="/vendor/jquery.min.js"></script>
   <script charset="utf-8" src="/vendor/hogan-3.0.2.min.js"></script>
   <script charset="utf-8" src="/js/app.js"></script>
 </body>
