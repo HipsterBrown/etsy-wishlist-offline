@@ -15,12 +15,12 @@
   <main>
     <div class="container">
       <div class="button-bar">
-        <button class="item-button" data-action="trending">Trending</button>
-        <button class="item-button" data-action="interesting">Interesting</button>
+        <button class="item-button" data-action="Trending">Trending</button>
+        <button class="item-button" data-action="Interesting">Interesting</button>
 
-        <form id="search-form" action="https://etsy.com/search.php" method="GET">
-          <input id="terms" type="text" name="search" placeholder="Search for items">
-          <input id="search" type="submit" name="search-submit" value="Search">
+        <form id="search-form" class="search-form" action="https://etsy.com/search.php" method="GET">
+          <input id="terms" class="search-text" type="text" name="search" placeholder="Search for items">
+          <input id="search" class="search-submit" type="submit" name="search-submit" value="Search">
         </form>
       </div>
       <div id="results"></div>

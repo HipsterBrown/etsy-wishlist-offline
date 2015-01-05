@@ -13,13 +13,25 @@ $('document').ready(function(){
   itemButton.on('click', triggerLoad);
 
 
-  function loadItems(url) {
-    resultsBox.html("<p>Loading...</p>");
+  function loadItems(url, title) {
+    var itemsBox = $('.items');
+
+    if(itemsBox) {
+      itemsBox.prepend("<p class='loading'>Loading...</p>");
+    } else {
+      resultsBox.append("<p class='loading'>Loading...</p>");
+    }
+
+    if(!title) {
+      title = "Neat";
+    }
 
     $.ajax({
       url: url,
       dataType: "jsonp",
       success: processData
+    }).then(function(){
+      resultsBox.prepend("<h2 class='results-title'>"+title+" Items</h2>");
     });
   }
 
@@ -35,28 +47,31 @@ $('document').ready(function(){
 
     var searchUrl = "https://openapi.etsy.com/v2/listings/active.js?keywords="+terms+"&limit=12&includes=Images:1&api_key="+apiKey;
 
-    loadItems(searchUrl);
+    loadItems(searchUrl, terms);
   }
 
   function triggerLoad(e) {
     var target = $(e.target).attr('data-action');
     var itemUrl;
 
-    if(target === "trending") {
+    if(target === "Trending") {
         itemUrl = trendingUrl;
-    } else if(target === "interesting") {
+    } else if(target === "Interesting") {
         itemUrl = interestingUrl;
     } else {
       return false;
     }
 
-    loadItems(itemUrl);
+    loadItems(itemUrl, target);
+
+    //resultsBox.prepend("<h2 class='results-title'>"+target+" Items</h2>");
 
   }
 
   function processData(data) {
     if(data.ok) {
       console.log(data.results);
+      var loadingMessage = $('.loading');
       var resultsFrag = "<ul class='items'>";
 
       $.each(data.results, function(i, item){
@@ -65,7 +80,12 @@ $('document').ready(function(){
 
       resultsFrag += "</ul>";
 
-      resultsBox.html(resultsFrag);
+      if(loadingMessage) {
+        loadingMessage.remove();
+      }
+
+      resultsBox.empty();
+      resultsBox.append(resultsFrag);
     } else {
       resultsBox.html("<p>Nothing found.</p>");
     }
@@ -79,5 +99,5 @@ $('document').ready(function(){
     return resultTemplate.render(data);
   }
 
-  loadItems(trendingUrl);
+  loadItems(trendingUrl, "Trending");
 });
