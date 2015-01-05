@@ -15,13 +15,23 @@
       <input id="terms" type="text" name="search" placeholder="Search for items">
       <input id="search" type="submit" name="search-submit" value="Search">
     </form>
+    <div class="button-bar">
+      <button class="item-button" data-action="trending">Trending</button>
+      <button class="item-button" data-action="interesting">Interesting</button>
+    </div>
     <div id="results"></div>
   </main>
 
   <script id="template-result" type="x-tmpl-mustache">
     <li class="item">
       <a href="{{ url }}">
-        <img src="{{#Images}}{{ url_75x75 }}{{/Images}}" alt="{{ description }}" />
+        <div class="item-img-container">
+          <img src="{{#Images}}{{ url_570xN }}{{/Images}}" alt="{{ description }}" />
+        </div>
+        <div class="item-info">
+          <h5 class="item-title">{{title}}</h5>
+          <p class="item-price">${{price}}</p>
+        </div>
       </a>
     </li>
   </script>

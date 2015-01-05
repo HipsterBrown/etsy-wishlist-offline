@@ -5,10 +5,12 @@ $('document').ready(function(){
   var trendingUrl = "https://openapi.etsy.com/v2/listings/trending.js?limit=12&includes=Images:1&api_key="+apiKey;
   var interestingUrl = "https://openapi.etsy.com/v2/listings/interesting.js?limit=12&includes=Images:1&api_key="+apiKey;
   var resultsBox =  $('#results');
-  var searchButton = $('#search');
 
   var searchForm = $('#search-form');
   searchForm.on('submit', searchEtsy);
+
+  var itemButton = $('.item-button');
+  itemButton.on('click', triggerLoad);
 
 
   function loadItems(url) {
@@ -34,6 +36,22 @@ $('document').ready(function(){
     var searchUrl = "https://openapi.etsy.com/v2/listings/active.js?keywords="+terms+"&limit=12&includes=Images:1&api_key="+apiKey;
 
     loadItems(searchUrl);
+  }
+
+  function triggerLoad(e) {
+    var target = $(e.target).attr('data-action');
+    var itemUrl;
+
+    if(target === "trending") {
+        itemUrl = trendingUrl;
+    } else if(target === "interesting") {
+        itemUrl = interestingUrl;
+    } else {
+      return false;
+    }
+
+    loadItems(itemUrl);
+
   }
 
   function processData(data) {
