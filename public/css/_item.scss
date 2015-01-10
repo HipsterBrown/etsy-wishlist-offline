@@ -29,6 +29,7 @@
 }
 
 .item-title {
+  clear: both;
   margin-bottom: 0.5em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,4 +39,18 @@
 
 .item-price {
   color: $green-lime;
+  float: left;
+  position: relative;
+  top: 1.5em;
+  width: 50%;
+}
+
+.item-add {
+  @extend %button-action;
+  float: right;
+  margin-bottom: 0.5em;
+
+  .icon-list {
+    background: $gray-border;
+  }
 }

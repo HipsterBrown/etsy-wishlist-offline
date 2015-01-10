@@ -6,21 +6,17 @@ $('document').ready(function(){
   var trendingUrl = "https://openapi.etsy.com/v2/listings/trending.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
   var interestingUrl = "https://openapi.etsy.com/v2/listings/interesting.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
   var resultsBox =  $('#results');
-
   var searchForm = $('#search-form');
-  searchForm.on('submit', searchEtsy);
-
   var itemButton = $('.item-button');
-  itemButton.on('click', triggerLoad);
 
 
   function loadItems(url, title) {
     var itemsBox = $('.items');
 
     if(itemsBox) {
-      itemsBox.prepend("<p class='loading'>Loading...</p>");
+      itemsBox.prepend("<p class='loading' data-animate='fade-in'>Loading...</p>");
     } else {
-      resultsBox.append("<p class='loading'>Loading...</p>");
+      resultsBox.append("<p class='loading' data-animate='fade-in'>Loading...</p>");
     }
 
     if(!title) {
@@ -30,9 +26,10 @@ $('document').ready(function(){
     $.ajax({
       url: url,
       dataType: "jsonp",
+      beforeSend: removeItems,
       success: processData
     }).then(function(){
-      resultsBox.prepend("<h2 class='results-title'>"+title+" Items</h2>");
+      resultsBox.prepend("<h2 class='results-title' data-animate='fade-in'>"+title+" Items</h2>");
     });
   }
 
@@ -65,8 +62,16 @@ $('document').ready(function(){
 
     loadItems(itemUrl, target);
 
-    //resultsBox.prepend("<h2 class='results-title'>"+target+" Items</h2>");
+  }
 
+  function removeItems() {
+    var items = $('.item');
+    var resultsTitle = $('.results-title');
+
+    if(items.length > 0) {
+      resultsTitle.attr('data-animate', 'fade-out');
+      items.attr('data-animate', 'fade-out');
+    }
   }
 
   function processData(data) {
@@ -82,7 +87,7 @@ $('document').ready(function(){
       resultsFrag += "</ul>";
 
       if(loadingMessage) {
-        loadingMessage.remove();
+        loadingMessage.attr('data-animate', 'fade-out');
       }
 
       resultsBox.empty();
@@ -100,5 +105,16 @@ $('document').ready(function(){
     return resultTemplate.render(data);
   }
 
+  function addWish(e){
+    var parentItem = this.parentNode.parentNode;
+
+    if (parentItem.className === 'item') {
+        console.log(parentItem.getAttribute('data-id'));
+    }
+  }
+
+  resultsBox.on('click', 'button[data-action=wishlist-add]', addWish);
+  searchForm.on('submit', searchEtsy);
+  itemButton.on('click', triggerLoad);
   loadItems(trendingUrl, "Trending");
 });
