@@ -47,8 +47,10 @@
 
 .item-add {
   @extend %button-action;
+  color: $black-text;
   float: right;
   margin-bottom: 0.5em;
+  text-shadow: 0px 1px 0px white;
 
   .icon-list {
     background: $gray-border;

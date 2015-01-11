@@ -25,25 +25,25 @@
       </div>
       <div id="results"></div>
     </div>
+    <aside class="wishlist">
+      <button class="wishlist-open" data-action="wishlist-open"><span class="icon-list"></span></button>
+      <h2 class="wishlist-title">Wishlist Items</h2>
+    </aside>
   </main>
+  <footer class="footer">
+    <!-- <p class="copyright">A HipsterBrown Project</p> -->
+  </footer>
 
   <script id="template-result" type="x-tmpl-mustache">
     <li class="item" data-animate="fly-up" data-id="{{listing_id}}">
-      <a href="{{ url }}">
+      <a class="item-link" href="{{ url }}">
         <div class="item-img-container">
           <img class="item-img" src="{{#Images}}{{ url_570xN }}{{/Images}}" alt="{{ description }}" />
         </div>
       </a>
       <div class="item-info clear">
-        <p class="item-title"><a href="{{url}}">{{title}}</a></p>
-        <p class="item-price">
-          {{#price}}
-            ${{price}}
-          {{/price}}
-          {{^price}}
-            Sold Out
-          {{/price}}
-        </p>
+        <p class="item-title"><a class="item-link" href="{{url}}">{{title}}</a></p>
+        <p class="item-price" {{#price}}data-price="{{price}}"{{/price}}>{{#price}}${{price}}{{/price}} {{^price}}Sold Out{{/price}}</p>
         <button class="item-add" data-action="wishlist-add"><span class="icon-list"></span> Wishlist</button>
       </div>
     </li>

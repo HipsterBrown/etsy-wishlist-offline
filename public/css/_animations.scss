@@ -26,7 +26,7 @@
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
   opacity: 0;
-  transform: translateY(500%);
+  transform: translateY(300%);
 
   @for $i from 1 through 25 {
     &:nth-child(#{$i}) {

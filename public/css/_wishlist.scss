@@ -1,0 +1,35 @@
+// Wishlist Sidebar Styles
+
+.wishlist {
+  background: $blue-light;
+  box-shadow: inset 2px 1px 4px rgba(darken($blue-light, 60%), 0.3);
+  height: 100%;
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  top: -2em;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+  width: 33%;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  .item {
+    width: 47%;
+  }
+}
+
+.wishlist-open {
+  @extend %button-action;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  left: -2.3em;
+  position: absolute;
+  top: 0;
+
+  .icon-list {
+    margin-right: 0;
+  }
+}

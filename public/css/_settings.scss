@@ -4,6 +4,7 @@ $serif: Georgia, serif;
 
 // Color Settings
 $black: #333333;
+$black-text: #5A5552;
 $blue-light: #E5F4F7;
 $blue-teal: #0192B5;
 $blue-dark: #4CA0C8;
@@ -37,6 +38,10 @@ $max-width: 990px;
 
 body {
   background: $green-faded;
+}
+
+main {
+  position: relative;
 }
 
 .clear {

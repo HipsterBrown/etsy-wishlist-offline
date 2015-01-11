@@ -8,6 +8,7 @@ $('document').ready(function(){
   var resultsBox =  $('#results');
   var searchForm = $('#search-form');
   var itemButton = $('.item-button');
+  var openButton = $('button[data-action=wishlist-open]');
 
 
   function loadItems(url, title) {
@@ -65,7 +66,7 @@ $('document').ready(function(){
   }
 
   function removeItems() {
-    var items = $('.item');
+    var items = $('#results .item');
     var resultsTitle = $('.results-title');
 
     if(items.length > 0) {
@@ -106,13 +107,82 @@ $('document').ready(function(){
   }
 
   function addWish(e){
-    var parentItem = this.parentNode.parentNode;
+    var parentItem = $(this).parents('.item');
+    var itemID = $(parentItem).attr('data-id');
+    var itemLink = $(parentItem).find('.item-link').attr('href');
+    var itemImg = $(parentItem).find('.item-img').attr('src');
+    var itemDesc = $(parentItem).find('.item-img').attr('alt');
+    var itemTitle = $(parentItem).find('.item-title').text();
+    var itemPrice = $(parentItem).find('.item-price').attr('data-price');
 
-    if (parentItem.className === 'item') {
-        console.log(parentItem.getAttribute('data-id'));
+    if (parentItem.hasClass('item')) {
+      var itemJSON = {
+        'listing_id': itemID,
+        'url': itemLink,
+        'Images': [
+          {
+            'url_570xN': itemImg
+          }
+        ],
+        'description': itemDesc,
+        'title': itemTitle,
+        'price': itemPrice ? itemPrice : false
+      };
+
+      storeItem(itemJSON);
     }
   }
 
+  function storeItem(data) {
+    var store = localStorage.getItem('items');
+    var storeJSON;
+
+    if(store) {
+      storeJSON = JSON.parse(store);
+      if(Array.isArray(storeJSON)) {
+        storeJSON.push(data);
+      } else {
+        storeJSON = new Array();
+        storeJSON.push(data);
+      }
+    } else {
+      storeJSON = new Array();
+      storeJSON.push(data);
+    }
+
+    var storeString = JSON.stringify(storeJSON);
+    localStorage.setItem('items', storeString);
+
+    $(window).trigger('storage');
+  }
+
+  function renderList(e) {
+    var savedItems = JSON.parse(localStorage.items);
+    //console.log(savedItems.length);
+
+    var wishBox = $('.wishlist');
+    var listFrag = "<ul class='items'>";
+
+    $.each(savedItems, function(i, item) {
+      listFrag += renderResults(item);
+    });
+
+    listFrag += "</ul>";
+
+    wishBox.find('.items').remove();
+    wishBox.append(listFrag);
+  }
+
+  function showList(e) {
+    $(this).parents('.wishlist').toggleClass('is-open');
+
+    if( $('.wishlist').hasClass('is-open') ) {
+      renderList();
+    }
+  }
+
+  openButton.on('click', showList);
+  $(window).on('storage', renderList);
   resultsBox.on('click', 'button[data-action=wishlist-add]', addWish);
   searchForm.on('submit', searchEtsy);
   itemButton.on('click', triggerLoad);
