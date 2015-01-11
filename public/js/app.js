@@ -237,4 +237,8 @@ $('document').ready(function(){
   searchForm.on('submit', searchEtsy);
   itemButton.on('click', triggerLoad);
   loadItems(trendingUrl, "Trending");
+
+  setTimeout(function(){
+    $('.footer').attr('data-animate', 'fade-in');
+  }, 5000);
 });
