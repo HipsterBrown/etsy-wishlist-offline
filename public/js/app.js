@@ -6,6 +6,7 @@ $('document').ready(function(){
   var trendingUrl = "https://openapi.etsy.com/v2/listings/trending.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
   var interestingUrl = "https://openapi.etsy.com/v2/listings/interesting.js?limit="+limit+"&includes=Images:1&api_key="+apiKey;
   var resultsBox =  $('#results');
+  var wishBox = $('.wishlist');
   var searchForm = $('#search-form');
   var itemButton = $('.item-button');
   var openButton = $('button[data-action=wishlist-open]');
@@ -93,6 +94,7 @@ $('document').ready(function(){
 
       resultsBox.empty();
       resultsBox.append(resultsFrag);
+      checkButtons();
     } else {
       resultsBox.html("<p>Nothing found.</p>");
     }
@@ -130,7 +132,27 @@ $('document').ready(function(){
       };
 
       storeItem(itemJSON);
+      checkButtons();
     }
+  }
+
+  function removeWish(e) {
+    var parentItem = $(this).parents('.item');
+    var itemID = parentItem.attr('data-id');
+
+    var savedItems = JSON.parse(localStorage.items);
+
+    savedItems.forEach(function(savedItem, i, arr){
+      if(savedItem.listing_id == itemID) {
+        savedItems.splice(i, 1);
+      }
+    });
+
+    var newList = JSON.stringify(savedItems);
+    localStorage.setItem('items', newList);
+
+    $(window).trigger('storage');
+    checkButtons();
   }
 
   function storeItem(data) {
@@ -171,6 +193,8 @@ $('document').ready(function(){
 
     wishBox.find('.items').remove();
     wishBox.append(listFrag);
+
+    checkButtons();
   }
 
   function showList(e) {
@@ -181,9 +205,35 @@ $('document').ready(function(){
     }
   }
 
+  function checkButtons() {
+    var items = $('.item');
+
+    $.each(items, function(i, item){
+      var addButton = $(item).find('button[data-action=wishlist-add]');
+      var removeButton = $(item).find('button[data-action=wishlist-remove]');
+      var itemID = $(item).attr('data-id');
+      var savedItems = JSON.parse(localStorage.items);
+      var isSaved = false;
+
+      $.each(savedItems, function(x, savedItem){
+          if(savedItem.listing_id == itemID) {
+              isSaved = true;
+          }
+      });
+
+      if(isSaved && addButton) {
+          addButton.removeClass('item-add').addClass('item-remove').attr('data-action', 'wishlist-remove').html('<span class="icon-list"></span> Remove');
+      } else if (removeButton) {
+          removeButton.removeClass('item-remove').addClass('item-add').attr('data-action', 'wishlist-add').html('<span class="icon-list"></span> Wishlist');
+      }
+    });
+  }
+
   openButton.on('click', showList);
   $(window).on('storage', renderList);
   resultsBox.on('click', 'button[data-action=wishlist-add]', addWish);
+  resultsBox.on('click', 'button[data-action=wishlist-remove]', removeWish);
+  wishBox.on('click', 'button[data-action=wishlist-remove]', removeWish);
   searchForm.on('submit', searchEtsy);
   itemButton.on('click', triggerLoad);
   loadItems(trendingUrl, "Trending");

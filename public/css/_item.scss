@@ -56,3 +56,15 @@
     background: $gray-border;
   }
 }
+
+.item-remove {
+  @extend %button-action;
+  color: $blue-teal;
+  float: right;
+  margin-bottom: 0.5em;
+  text-shadow: 0px 1px 0px white;
+
+  .icon-list {
+    background: $blue-teal;
+  }
+}
