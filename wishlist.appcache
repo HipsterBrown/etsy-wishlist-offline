@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# 2015-01-11:v1.9
+
+CACHE:
+index.html
+css/style.css
+vendor/hogan-3.0.2.min.js
+vendor/jquery.min.js
+js/app.js
+
+NETWORK:
+*

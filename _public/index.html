@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"  manifest="wishlist.appcache">
+<head>
+  <meta charset="UTF-8">
+  <title>Etsy Offline Wishlist</title>
+  <link rel="stylesheet" href="css/style.css" charset="utf-8">
+</head>
+<body>
+  <div class="top-nav">
+    <div class="container">
+      <h1 class="logo"><a href="/">Etsy Wishlist</a></h1>
+      <h3 class="tagline">Offline Capable for Your Convenience</h3>
+    </div>
+  </div>
+  <main>
+    <div class="container">
+      <div class="button-bar">
+        <button class="item-button" data-action="Trending">Trending</button>
+        <button class="item-button" data-action="Interesting">Interesting</button>
+
+        <form id="search-form" class="search-form" action="https://etsy.com/search.php" method="GET">
+          <input id="terms" class="search-text" type="text" name="search" placeholder="Search for items">
+          <input id="search" class="search-submit" type="submit" name="search-submit" value="Search">
+        </form>
+      </div>
+      <div id="results"></div>
+    </div>
+    <aside class="wishlist">
+      <button class="wishlist-open" data-action="wishlist-open"><span class="icon-list"></span></button>
+      <h2 class="wishlist-title">Wishlist Items</h2>
+    </aside>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">A <a href="http://www.hipsterbrown.com">HipsterBrown</a> Project</p>
+    </div>
+  </footer>
+
+  <script id="template-result" type="x-tmpl-mustache">
+    <li class="item" data-animate="fly-up" data-id="{{listing_id}}">
+      <a class="item-link" href="{{ url }}">
+        <div class="item-img-container">
+          <img class="item-img" src="{{#Images}}{{ url_570xN }}{{/Images}}" alt="{{ description }}" />
+        </div>
+      </a>
+      <div class="item-info clear">
+        <p class="item-title"><a class="item-link" href="{{url}}">{{title}}</a></p>
+        <p class="item-price" {{#price}}data-price="{{price}}"{{/price}}>{{#price}}${{price}}{{/price}} {{^price}}Sold Out{{/price}}</p>
+        <button class="item-add" data-action="wishlist-add"><span class="icon-list"></span> Wishlist</button>
+      </div>
+    </li>
+  </script>
+  <script charset="utf-8" src="vendor/jquery.min.js"></script>
+  <script charset="utf-8" src="vendor/hogan-3.0.2.min.js"></script>
+  <script charset="utf-8" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+html {
+  font-size: 14px;
+}
+
+body {
+  color: $black;
+  font-family: $sans;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.79;
+}
+
+h1, h2 {
+  font-family: $serif;
+}
+
+h1 {
+  line-height: 2;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+}
+
+ul, ol {
+  line-height: 1.2;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}

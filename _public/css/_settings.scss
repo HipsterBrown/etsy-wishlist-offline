@@ -1,0 +1,59 @@
+// Font Settings
+$sans: 'Avenir Next', 'Avenir', 'Helvetica Neue', helvetica, arial, sans-serif;
+$serif: Georgia, serif;
+
+// Color Settings
+$black: #333333;
+$black-text: #5A5552;
+$blue-light: #E5F4F7;
+$blue-teal: #0192B5;
+$blue-dark: #4CA0C8;
+$gray-light: #E8E9E9;
+$gray: #E2E2E2;
+$gray-border: #CFCBC8;
+$gray-shadow: #E9E9E8;
+$gray-dark: #666666;
+$green-faded: #F5F5F1;
+$green-light: #E4F3DA;
+$green-lime: #7AC142;
+$orange: #D05A31;
+
+// Width Settings
+$max-width: 990px;
+
+// Extendables
+%clear {
+  &:after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+}
+
+// Base Reset
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $green-faded;
+}
+
+main {
+  position: relative;
+
+/*   &.is-offline {
+} */
+}
+
+.clear {
+  @extend %clear;
+}
+
+.container {
+  @extend %clear;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 2%;
+}
