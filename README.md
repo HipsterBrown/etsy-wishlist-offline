@@ -29,5 +29,6 @@ Features
 
 Future Features?
 ---
+- fully responsive tested
 - backup wishlist items to some kind of basic remote storage like Firebase
 - create a view for sharing a wishlist based on a username query in the URL
