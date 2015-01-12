@@ -43,6 +43,10 @@
   position: relative;
   top: 1.5em;
   width: 50%;
+
+  .is-offline & {
+    top: 0;
+  }
 }
 
 .item-add {

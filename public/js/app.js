@@ -30,9 +30,11 @@ $('document').ready(function(){
       dataType: "jsonp",
       beforeSend: removeItems,
       success: processData
-    }).then(function(){
+    })
+    .done(function(){
       resultsBox.prepend("<h2 class='results-title' data-animate='fade-in'>"+title+" Items</h2>");
-    });
+    })
+    .fail(offlineFallback);
   }
 
   function searchEtsy(e) {
@@ -229,6 +231,33 @@ $('document').ready(function(){
     });
   }
 
+  function offlineFallback(response) {
+    if (window.navigator.onLine) {
+        $('main').addClass('is-offline').find('#results').append('<p class="offline-message">You appear to be offline. Here is your saved Wishlist.</p>');
+
+        var savedItems = JSON.parse(localStorage.items);
+
+        var listFrag = "<ul class='items'>";
+
+        $.each(savedItems, function(i, item) {
+          listFrag += renderResults(item);
+        });
+
+        listFrag += "</ul>";
+
+        resultsBox.empty();
+        resultsBox.append(listFrag);
+
+        resultsBox.find('.item').find('.item-img-container').remove();
+        resultsBox.find('.item').find('button').remove();
+
+        checkButtons();
+    } else {
+      alert('The request for items from Etsy failed for some reason');
+    }
+    //console.log('Are you online? ' + window.navigator.onLine);
+  }
+
   openButton.on('click', showList);
   $(window).on('storage', renderList);
   resultsBox.on('click', 'button[data-action=wishlist-add]', addWish);
@@ -240,5 +269,6 @@ $('document').ready(function(){
 
   setTimeout(function(){
     $('.footer').attr('data-animate', 'fade-in');
-  }, 5000);
+  }, 2000);
+
 });
